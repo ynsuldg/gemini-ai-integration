@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gemini Chat</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>Gemini Chat</h1>
+        <p>Ask a question and get an AI-powered answer.</p>
+    </header>
+
+    <section class="card">
+
+        <form action="/ask" method="post">
+
+            <label for="prompt">
+                Your Question
+            </label>
+
+            <textarea
+                    id="prompt"
+                    name="prompt"
+                    placeholder="Type your question here..."
+                    required></textarea>
+
+            <button type="submit">
+                Send Question
+            </button>
+
+        </form>
+
+    </section>
+
+    <section class="card" th:if="${answer}">
+
+        <h2>Latest Response</h2>
+
+        <div class="question-box">
+
+            <h3>Question</h3>
+
+            <p th:text="${prompt}"></p>
+
+        </div>
+
+        <div class="answer-box">
+
+            <h3>Answer</h3>
+
+            <p th:text="${answer}"></p>
+
+        </div>
+
+    </section>
+
+    <section class="card">
+
+        <h2>Saved Conversations</h2>
+
+        <p
+                class="empty-text"
+                th:if="${#lists.isEmpty(conversations)}">
+
+            No saved conversations yet.
+
+        </p>
+
+        <div
+                class="conversation"
+                th:each="conversation : ${conversations}">
+
+            <h3>Question</h3>
+
+            <p th:text="${conversation.prompt}"></p>
+
+            <h3>Answer</h3>
+
+            <p th:text="${conversation.answer}"></p>
+
+        </div>
+
+    </section>
+
+</div>
+
+<footer>
+    <p>
+        Created by Yunus U. |
+        GitHub: @ynsuldg
+    </p>
+</footer>
+
+</body>
+</html>
